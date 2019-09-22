@@ -36,12 +36,11 @@ class Database:
             produit.grade,
             produit.categorie,
             produit.stores,
-            produit.image_url
+            produit.image_url,
         )
         self.mycursor.execute(sql, val)
         self.mydb.commit()
         print(self.mycursor.rowcount, "record inserted.")
-
 
     def set_favoris(self, produit):
         """Method who add a product as a favorite"""
@@ -50,7 +49,6 @@ class Database:
         val = (produit.code_barre,)
         self.mycursor.execute(sql, val)
         self.mydb.commit()
-
 
     ##############################################################
     #                       Selection  of the data               #

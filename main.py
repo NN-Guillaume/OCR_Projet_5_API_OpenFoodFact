@@ -1,6 +1,6 @@
-from bdd import *
+from database import *
 from product import *
-import resetBDD
+import resetDataBase
 
 # The constants
 url_base = "https://fr.openfoodfacts.org/categorie/"  # we add produit/i.json
@@ -11,18 +11,18 @@ total_charged = 0
 total_analysed = 0
 
 print("------------------------------------------------------")
-print("1. Création et initialisation de la BDD avant d'utiliser l'appli")
+print("1. Création et initialisation de la BDD avant d'utiliser l'application")
 print("2. Utiliser directement l'application ")
 print("0. Quitter le programme")
 print("------------------------------------------------------")
 choice = int(input("\n"))
 
 if choice == 1:
-    resetBDD.reset()
+    resetDataBase.reset()
     # The use of the API shall be made only on the first use of the program
     instance = Database()
     categories = Category.get_api_categories()
-    number_to_display = int(input("Combien de categories voulez vous charger ? "))
+    number_to_display = int(input("Combien de catégories voulez-vous charger ? "))
     # I begun with a number of products per category
     for i in range(1, number_to_display + 1):
         categorie = Category(
@@ -38,7 +38,9 @@ if choice == 1:
         # for page in range(1, nb_produit + 1):
         for page in products_number:
             produits = categorie.get_api_products(page)
-            for k in range(20):  # Warning, there could be an error of loading on the last page
+            for k in range(
+                20
+            ):  # Warning, there could be an error of loading on the last page
                 total_analysed += 1
                 # Use of "get" for the dictionaries instead of the [""]
                 try:
@@ -49,21 +51,23 @@ if choice == 1:
                         produits["products"][k].get("id", "ID absent"),
                         i,
                         produits["products"][k].get("stores", "Information manquante"),
-                        produits["products"][k].get("image_url","Information manquante"),
+                        produits["products"][k].get(
+                            "image_url", "Information manquante"
+                        ),
                     )
                     produit.display_product()
                     try:
                         instance.set_product(produit)
                         total_charged += 1
                     except:
-                        print("produit ignoré cause BDD")
+                        print("produit ignoré cause base de données incomplète")
                         pass
                 except:
                     print(
                         "Produit ignoré pour cause d'information essentielle manquante"
                     )
     print(
-        "\n Ces {} catégories contiennent {} produits dont {} ont été analysé et {} retenus".format(
+        "\n Ces {} catégories contiennent {} produits dont {} ont été analysés et {} retenus".format(
             number_to_display, total_products, total_analysed, total_charged
         )
     )
@@ -75,7 +79,7 @@ reception_menu = True
 while reception_menu:
     print("------------------------------------------------------")
     print("1. Afficher les catégories et commencer une recherche ")
-    print("2. Afficher les favoris sauvgardés")
+    print("2. Afficher les favoris sauvegardés")
     print("0. Quitter le programme")
     print("------------------------------------------------------")
     choice = int(input())
@@ -114,7 +118,7 @@ while reception_menu:
         elif choice == "N":
             pass
         else:
-            print("Veuillez recomencer à la produit")
+            print("Veuillez recommencer")
             pass
     elif choice == 2:
         instance.print_all_favoris()

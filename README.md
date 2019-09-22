@@ -1,4 +1,4 @@
-# OCR_Projet_5_API_OpenFoodFact
+# OCR_Project_5_API_OpenFoodFact
 OenClassRooms - Python - Projet n°5: API OpenFoodFact
 
 Informations destinated to the users
@@ -31,5 +31,3 @@ About the functionalities :
 - The user interact with the program in the terminal.
 - If the user’s input is not a number, the program will repeat the question.
 - All the search are done on a  MySql base.
-
-

@@ -1,4 +1,4 @@
-#Please, remember that the more fields you ask, the less are the chance to find products
+# Please, remember that the more fields you ask, the less are the chance to find products
 from math import ceil
 import requests
 
@@ -38,13 +38,12 @@ class Category:
     @staticmethod
     def get_api_categories():
         """Get the categories thanks to the OpenFoodFact's API"""
-        print(" . . . Veuillez patienter... Requete en cours. . . ")
+        print(" . . . Veuillez patienter... Requête en cours. . . ")
         r = requests.get("https://fr.openfoodfacts.org/categories.json")
         categories = r.json()
         category_number = categories.get("count")
         print(" {} catégories présentes sur le site.".format(category_number))
         return categories
-
 
 
 class Product:
